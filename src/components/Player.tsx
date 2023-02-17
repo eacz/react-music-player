@@ -7,6 +7,7 @@ import { IconContext } from 'react-icons'
 import mp3 from '../assets/all_signs_points_to_lauderdale.mp3'
 import coverPhoto from '../assets/cover_photo.jfif'
 import { time } from '../interfaces'
+import { formatTime } from '../utils'
 
 const Player = () => {
   const [isPlaying, setIsPlaying] = useState(false)
@@ -69,12 +70,8 @@ const Player = () => {
           <p className=''>A Day to Remember</p>
         </div>
         <div className='flex'>
-          <p>
-            {currTime.min}:{currTime.sec}
-          </p>
-          <p>
-            {time.min}:{time.sec}
-          </p>
+          <p>{formatTime(currTime)}</p>
+          <p>{formatTime(time)}</p>
         </div>
         <div className='card-actions justify-center'>
           <input

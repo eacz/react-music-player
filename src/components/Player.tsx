@@ -57,16 +57,18 @@ const Player = () => {
     }, 1000)
     return () => clearInterval(interval)
   }, [sound])
+
   return (
-    <div className='component'>
-      <h2>Playing Now</h2>
-      <img className='musicCover' src={coverPhoto} />
-      <div>
-        <h3 className='title'>All Signs Point to Lauderdale</h3>
-        <p className='subTitle'>A Day to Remember</p>
-      </div>
-      <div>
-        <div className='time'>
+    <div className='card w-96 bg-base-100 shadow-xl'>
+      <figure>
+        <img src={coverPhoto} />
+      </figure>
+      <div className='card-body'>
+        <div>
+          <h3 className='card-title'>All Signs Point to Lauderdale</h3>
+          <p className=''>A Day to Remember</p>
+        </div>
+        <div className='flex'>
           <p>
             {currTime.min}:{currTime.sec}
           </p>
@@ -74,41 +76,43 @@ const Player = () => {
             {time.min}:{time.sec}
           </p>
         </div>
-        <input
-          type='range'
-          min='0'
-          max={duration! / 1000}
-          value={seconds}
-          className='timeline'
-          onChange={(e) => {
-            sound.seek([e.target.value])
-          }}
-        />
-      </div>
-      <div>
-        <button className='playButton'>
-          <IconContext.Provider value={{ size: '3em', color: '#27AE60' }}>
-            <BiSkipPrevious />
-          </IconContext.Provider>
-        </button>
-        {!isPlaying ? (
-          <button className='playButton' onClick={playingButton}>
-            <IconContext.Provider value={{ size: '3em', color: '#27AE60' }}>
-              <AiFillPlayCircle />
-            </IconContext.Provider>
-          </button>
-        ) : (
-          <button className='playButton' onClick={playingButton}>
-            <IconContext.Provider value={{ size: '3em', color: '#27AE60' }}>
-              <AiFillPauseCircle />
-            </IconContext.Provider>
-          </button>
-        )}
-        <button className='playButton'>
-          <IconContext.Provider value={{ size: '3em', color: '#27AE60' }}>
-            <BiSkipNext />
-          </IconContext.Provider>
-        </button>
+        <div className='card-actions justify-center'>
+          <input
+            type='range'
+            min='0'
+            max={duration! / 1000}
+            value={seconds}
+            className='range range-accent'
+            onChange={(e) => {
+              sound.seek([e.target.value])
+            }}
+          />
+          <div className='btn-group'>
+            <button>
+              <IconContext.Provider value={{ size: '3em', color: '#27AE60' }}>
+                <BiSkipPrevious />
+              </IconContext.Provider>
+            </button>
+            {!isPlaying ? (
+              <button onClick={playingButton}>
+                <IconContext.Provider value={{ size: '3em', color: '#27AE60' }}>
+                  <AiFillPlayCircle />
+                </IconContext.Provider>
+              </button>
+            ) : (
+              <button onClick={playingButton}>
+                <IconContext.Provider value={{ size: '3em', color: '#27AE60' }}>
+                  <AiFillPauseCircle />
+                </IconContext.Provider>
+              </button>
+            )}
+            <button>
+              <IconContext.Provider value={{ size: '3em', color: '#27AE60' }}>
+                <BiSkipNext />
+              </IconContext.Provider>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   )

@@ -1,22 +1,24 @@
 import { useEffect, useState } from 'react'
 import useSound from 'use-sound'
-import mp3 from '../assets/all_signs_points_to_lauderdale.mp3'
 import { AiFillPlayCircle, AiFillPauseCircle } from 'react-icons/ai'
 import { BiSkipNext, BiSkipPrevious } from 'react-icons/bi'
 import { IconContext } from 'react-icons'
+
+import mp3 from '../assets/all_signs_points_to_lauderdale.mp3'
 import coverPhoto from '../assets/cover_photo.jfif'
+import { time } from '../interfaces'
 
 const Player = () => {
   const [isPlaying, setIsPlaying] = useState(false)
   const [play, { pause, duration, sound }] = useSound(mp3)
-  const [currTime, setCurrTime] = useState({
+  const [currTime, setCurrTime] = useState<time>({
     min: 0,
     sec: 0,
   })
 
-  const [seconds, setSeconds] = useState()
+  const [seconds, setSeconds] = useState(0)
 
-  const [time, setTime] = useState({
+  const [time, setTime] = useState<time>({
     min: 0,
     sec: 0,
   })
@@ -35,12 +37,11 @@ const Player = () => {
     const sec = duration! / 1000
     const min = Math.floor(sec / 60)
     const secRemain = Math.floor(sec % 60)
-    const time = {
+    setTime({
       min: min,
       sec: secRemain,
-    }
-    setTime(time)
-  })
+    })
+  }, [isPlaying])
 
   useEffect(() => {
     const interval = setInterval(() => {
